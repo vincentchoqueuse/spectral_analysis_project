@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spectral_analysis module &mdash; spectral_analysis  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="spectral_analysis  documentation" href="index.html" />
+    <link rel="next" title="synthetic_signal module" href="synthetic_signal.html" />
+    <link rel="prev" title="Welcome to spectral_analysis’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="synthetic_signal.html" title="synthetic_signal module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to spectral_analysis’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">spectral_analysis  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-spectral_analysis">
+<span id="spectral-analysis-module"></span><h1>spectral_analysis module<a class="headerlink" href="#module-spectral_analysis" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="spectral_analysis.compute_autocovariance">
+<tt class="descclassname">spectral_analysis.</tt><tt class="descname">compute_autocovariance</tt><big>(</big><em>x</em>, <em>M=-1</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#compute_autocovariance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.compute_autocovariance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function compute the auto-covariance matrix of a numpy signal. The auto-covariance is computed as follows</p>
+<div class="math">
+<p><img src="_images/math/e6ab967f92c4d8fb4c7b53a6c2dadf8c9f05c838.png" alt="\textbf{R}=\frac{1}{N}\sum_{M-1}^{N-1}\textbf{x}_{m}\textbf{x}_{m}^{T}"/></p>
+</div><p>where <img class="math" src="_images/math/7b0491192ab72de30837a77d31dde6cd50f470bc.png" alt="\textbf{x}_{m}^{T}=[x[m],x[m-1],x[m-M+1]]"/>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; ndarray of size N</li>
+<li><strong>M</strong> &#8211; int, optional. Size of signal block. If M is equal to -1, then M=N/2.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spectral_analysis.compute_covariance">
+<tt class="descclassname">spectral_analysis.</tt><tt class="descname">compute_covariance</tt><big>(</big><em>X</em>, <em>type='real'</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#compute_covariance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.compute_covariance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function compute the covariance of a numpy matrix.</p>
+<ul class="simple">
+<li>If type=&#8217;real&#8217;, the covariance is computed as <img class="math" src="_images/math/e8a35bac4bb2c8cec331f4e6b75c097aa7aeb225.png" alt="\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{T}"/></li>
+<li>If type=&#8217;comp&#8217;, the covariance is computed as <img class="math" src="_images/math/999a06047817a180c704e7304c21570bf551827a.png" alt="\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{H}"/></li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> &#8211; M*N matrix</li>
+<li><strong>type</strong> &#8211; string, optional</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">covariance matrix of size M*M</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">spectral_analysis</span> <span class="kn">as</span> <span class="nn">sa</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="s">&#39;1 2; 3 4;5 6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sa</span><span class="o">.</span><span class="n">compute_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">matrix([[  2.5,   5.5,   8.5],</span>
+<span class="go">[  5.5,  12.5,  19.5],</span>
+<span class="go">[  8.5,  19.5,  30.5]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="spectral_analysis.pseudospectrum_MUSIC">
+<tt class="descclassname">spectral_analysis.</tt><tt class="descname">pseudospectrum_MUSIC</tt><big>(</big><em>x</em>, <em>L</em>, <em>M</em>, <em>Fe</em>, <em>f_vect</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#pseudospectrum_MUSIC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.pseudospectrum_MUSIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spectral_analysis.root_MUSIC">
+<tt class="descclassname">spectral_analysis.</tt><tt class="descname">root_MUSIC</tt><big>(</big><em>x</em>, <em>L</em>, <em>M</em>, <em>Fe</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#root_MUSIC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.root_MUSIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to spectral_analysis&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="synthetic_signal.html"
+                        title="next chapter">synthetic_signal module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/spectral_analysis.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="synthetic_signal.html" title="synthetic_signal module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to spectral_analysis’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">spectral_analysis  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

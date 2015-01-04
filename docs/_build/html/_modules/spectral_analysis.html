@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spectral_analysis &mdash; spectral_analysis  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="spectral_analysis  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">spectral_analysis  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for spectral_analysis</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span> <span class="k">as</span> <span class="n">sg</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">lg</span>
+
+
+<div class="viewcode-block" id="compute_covariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_covariance">[docs]</a><span class="k">def</span> <span class="nf">compute_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;real&#39;</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;This function compute the covariance of a numpy matrix. </span>
+<span class="sd">        </span>
+<span class="sd">        * If type=&#39;real&#39;, the covariance is computed as :math:`\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{T}`</span>
+<span class="sd">        </span>
+<span class="sd">        * If type=&#39;comp&#39;, the covariance is computed as :math:`\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{H}`</span>
+<span class="sd">        </span>
+<span class="sd">        :param X: M*N matrix</span>
+<span class="sd">        :param type: string, optional</span>
+<span class="sd">        :returns: covariance matrix of size M*M</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import spectral_analysis as sa</span>
+<span class="sd">        &gt;&gt;&gt; X = np.matrix(&#39;1 2; 3 4;5 6&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; sa.compute_covariance(X)</span>
+<span class="sd">        matrix([[  2.5,   5.5,   8.5],</span>
+<span class="sd">        [  5.5,  12.5,  19.5],</span>
+<span class="sd">        [  8.5,  19.5,  30.5]])</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+    <span class="c">#Number of columns</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="o">==</span><span class="s">&#39;comp&#39;</span><span class="p">:</span>
+        <span class="n">R</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">H</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">R</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">return</span> <span class="n">R</span>
+
+</div>
+<div class="viewcode-block" id="compute_autocovariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_autocovariance">[docs]</a><span class="k">def</span> <span class="nf">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    
+    <span class="sd">r&quot;&quot;&quot; This function compute the auto-covariance matrix of a numpy signal. The auto-covariance is computed as follows</span>
+<span class="sd">        </span>
+<span class="sd">        .. math:: \textbf{R}=\frac{1}{N}\sum_{M-1}^{N-1}\textbf{x}_{m}\textbf{x}_{m}^{T}</span>
+<span class="sd">        </span>
+<span class="sd">        where :math:`\textbf{x}_{m}^{T}=[x[m],x[m-1],x[m-M+1]]`.</span>
+<span class="sd">        </span>
+<span class="sd">    </span>
+<span class="sd">        :param x: ndarray of size N</span>
+<span class="sd">        :param M:  int, optional. Size of signal block. If M is equal to -1, then M=N/2.</span>
+<span class="sd">        :returns: ndarray</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+    <span class="c"># Create covariance matrix for psd estimation</span>
+    <span class="c"># length of the vector x</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">M</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span>
+    
+    <span class="c"># init covariance matrix</span>
+    <span class="n">yn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">yn</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">yn</span>
+    <span class="k">for</span> <span class="n">indice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">-</span><span class="n">M</span><span class="p">):</span>
+        <span class="n">yn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">indice</span><span class="p">:</span><span class="n">indice</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="o">+</span><span class="n">yn</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">yn</span>
+    
+    <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="o">/</span><span class="n">N</span>
+    <span class="k">return</span> <span class="n">R</span>
+</div>
+<div class="viewcode-block" id="pseudospectrum_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.pseudospectrum_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">pseudospectrum_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="p">,</span><span class="n">f_vect</span><span class="p">):</span>
+    
+    <span class="c">#compute covariance matrix</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="c">#perform SVD of the covariance matrix</span>
+    <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+
+    <span class="c">#extract noise subspace</span>
+    <span class="n">U_noise</span><span class="o">=</span><span class="n">U</span><span class="p">[:,</span><span class="n">L</span><span class="p">:]</span>
+
+    <span class="c">#compute cost function MUSIC pseudo spectrum</span>
+    <span class="n">N_f</span><span class="o">=</span><span class="n">f_vect</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">cost</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_f</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">indice</span><span class="p">,</span><span class="n">f_temp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f_vect</span><span class="p">):</span>
+        <span class="c"># construct a</span>
+        <span class="n">vect_exp</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f_temp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">M</span><span class="p">)</span><span class="o">/</span><span class="n">Fe</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span><span class="o">*</span><span class="n">vect_exp</span><span class="p">)</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    
+        <span class="n">cost</span><span class="p">[</span><span class="n">indice</span><span class="p">]</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">lg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">U_noise</span><span class="o">.</span><span class="n">H</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cost</span>
+</div>
+<div class="viewcode-block" id="root_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.root_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">root_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="p">):</span>
+
+    <span class="c">#compute covariance matrix</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">compute_covariance_psd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+    
+    <span class="c">#perform SVD of the covariance matrix</span>
+    <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    
+    <span class="c">#extract noise subspace</span>
+    <span class="n">U_noise</span><span class="o">=</span><span class="n">U</span><span class="p">[:,</span><span class="n">L</span><span class="p">:]</span>
+
+    <span class="c">#construct polynomial</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">spectral_analysis  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

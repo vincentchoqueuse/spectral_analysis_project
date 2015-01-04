@@ -1,0 +1,130 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		0A88F8C11A593B3E002592F1 /* spectral_analysis.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = spectral_analysis.py; sourceTree = "<group>"; };
+		0A88F8C21A593B3E002592F1 /* synthetic_signal.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = synthetic_signal.py; sourceTree = "<group>"; };
+		0A88F8D11A593BD7002592F1 /* conf.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = conf.py; sourceTree = "<group>"; };
+		0A88F8D21A593BD7002592F1 /* index.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.rst; sourceTree = "<group>"; };
+		0A88F8D31A593BD7002592F1 /* make.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = make.bat; sourceTree = "<group>"; };
+		0A88F8D41A593BD7002592F1 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		0A88F8D51A593BD7002592F1 /* spectral_analysis.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = spectral_analysis.rst; sourceTree = "<group>"; };
+		0A88F8D61A593BD7002592F1 /* synthetic_signal.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = synthetic_signal.rst; sourceTree = "<group>"; };
+		0A948D0A1A378E5600E44DAA /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
+		0AB1DDF51A5439B0002374FB /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0A88F8C01A593B3E002592F1 /* spectral_analysis */ = {
+			isa = PBXGroup;
+			children = (
+				0A88F8C11A593B3E002592F1 /* spectral_analysis.py */,
+				0A88F8C21A593B3E002592F1 /* synthetic_signal.py */,
+			);
+			path = spectral_analysis;
+			sourceTree = "<group>";
+		};
+		0A88F8CD1A593BD7002592F1 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				0A88F8CE1A593BD7002592F1 /* _build */,
+				0A88F8CF1A593BD7002592F1 /* _static */,
+				0A88F8D01A593BD7002592F1 /* _templates */,
+				0A88F8D11A593BD7002592F1 /* conf.py */,
+				0A88F8D21A593BD7002592F1 /* index.rst */,
+				0A88F8D31A593BD7002592F1 /* make.bat */,
+				0A88F8D41A593BD7002592F1 /* Makefile */,
+				0A88F8D51A593BD7002592F1 /* spectral_analysis.rst */,
+				0A88F8D61A593BD7002592F1 /* synthetic_signal.rst */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		0A88F8CE1A593BD7002592F1 /* _build */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = _build;
+			sourceTree = "<group>";
+		};
+		0A88F8CF1A593BD7002592F1 /* _static */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = _static;
+			sourceTree = "<group>";
+		};
+		0A88F8D01A593BD7002592F1 /* _templates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = _templates;
+			sourceTree = "<group>";
+		};
+		0A948D031A378DF100E44DAA = {
+			isa = PBXGroup;
+			children = (
+				0A88F8CD1A593BD7002592F1 /* docs */,
+				0A88F8C01A593B3E002592F1 /* spectral_analysis */,
+				0A948D0A1A378E5600E44DAA /* main.py */,
+				0AB1DDF51A5439B0002374FB /* readme.md */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		0A948D041A378DF100E44DAA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+			};
+			buildConfigurationList = 0A948D071A378DF100E44DAA /* Build configuration list for PBXProject "spectral_analysis_project" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0A948D031A378DF100E44DAA;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		0A948D081A378DF100E44DAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0A948D091A378DF100E44DAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A948D071A378DF100E44DAA /* Build configuration list for PBXProject "spectral_analysis_project" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A948D081A378DF100E44DAA /* Debug */,
+				0A948D091A378DF100E44DAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A948D041A378DF100E44DAA /* Project object */;
+}
