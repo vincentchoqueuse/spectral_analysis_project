@@ -52,19 +52,16 @@
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">lg</span>
 
 
-<div class="viewcode-block" id="compute_covariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_covariance">[docs]</a><span class="k">def</span> <span class="nf">compute_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;real&#39;</span><span class="p">):</span>
-    <span class="sd">r&quot;&quot;&quot;This function compute the covariance of a numpy matrix. </span>
+<div class="viewcode-block" id="compute_covariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_covariance">[docs]</a><span class="k">def</span> <span class="nf">compute_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;This function estimate the covariance of a zero-mean numpy matrix. The covariance is estimated as :math:`\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{H}`</span>
 <span class="sd">        </span>
-<span class="sd">        * If type=&#39;real&#39;, the covariance is computed as :math:`\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{T}`</span>
-<span class="sd">        </span>
-<span class="sd">        * If type=&#39;comp&#39;, the covariance is computed as :math:`\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{H}`</span>
 <span class="sd">        </span>
 <span class="sd">        :param X: M*N matrix</span>
 <span class="sd">        :param type: string, optional</span>
 <span class="sd">        :returns: covariance matrix of size M*M</span>
 <span class="sd">        </span>
 <span class="sd">        &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">        &gt;&gt;&gt; import spectral_analysis as sa</span>
+<span class="sd">        &gt;&gt;&gt; import spectral_analysis.spectral_analysis as sa</span>
 <span class="sd">        &gt;&gt;&gt; X = np.matrix(&#39;1 2; 3 4;5 6&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; sa.compute_covariance(X)</span>
 <span class="sd">        matrix([[  2.5,   5.5,   8.5],</span>
@@ -75,25 +72,21 @@
         
     <span class="c">#Number of columns</span>
     <span class="n">N</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">type</span><span class="o">==</span><span class="s">&#39;comp&#39;</span><span class="p">:</span>
-        <span class="n">R</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">H</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">R</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">R</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">H</span>
 
     <span class="k">return</span> <span class="n">R</span>
 
 </div>
-<div class="viewcode-block" id="compute_autocovariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_autocovariance">[docs]</a><span class="k">def</span> <span class="nf">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="compute_autocovariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_autocovariance">[docs]</a><span class="k">def</span> <span class="nf">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">):</span>
     
     <span class="sd">r&quot;&quot;&quot; This function compute the auto-covariance matrix of a numpy signal. The auto-covariance is computed as follows</span>
 <span class="sd">        </span>
-<span class="sd">        .. math:: \textbf{R}=\frac{1}{N}\sum_{M-1}^{N-1}\textbf{x}_{m}\textbf{x}_{m}^{T}</span>
+<span class="sd">        .. math:: \textbf{R}=\frac{1}{N}\sum_{M-1}^{N-1}\textbf{x}_{m}\textbf{x}_{m}^{H}</span>
 <span class="sd">        </span>
 <span class="sd">        where :math:`\textbf{x}_{m}^{T}=[x[m],x[m-1],x[m-M+1]]`.</span>
 <span class="sd">        </span>
-<span class="sd">    </span>
 <span class="sd">        :param x: ndarray of size N</span>
-<span class="sd">        :param M:  int, optional. Size of signal block. If M is equal to -1, then M=N/2.</span>
+<span class="sd">        :param M:  int, optional. Size of signal block.</span>
 <span class="sd">        :returns: ndarray</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -102,56 +95,191 @@
     <span class="c"># length of the vector x</span>
     <span class="n">N</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     
-    <span class="k">if</span> <span class="n">M</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
-        <span class="n">M</span><span class="o">=</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span>
+    <span class="c">#Create column vector from row array</span>
+    <span class="n">x_vect</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     
     <span class="c"># init covariance matrix</span>
-    <span class="n">yn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">R</span><span class="o">=</span><span class="n">yn</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">yn</span>
+    <span class="n">yn</span><span class="o">=</span><span class="n">x_vect</span><span class="p">[</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">yn</span><span class="o">*</span><span class="n">yn</span><span class="o">.</span><span class="n">H</span>
     <span class="k">for</span> <span class="n">indice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">-</span><span class="n">M</span><span class="p">):</span>
-        <span class="n">yn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">indice</span><span class="p">:</span><span class="n">indice</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="o">+</span><span class="n">yn</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">yn</span>
+        <span class="c">#extract the column vector</span>
+        <span class="n">yn</span><span class="o">=</span><span class="n">x_vect</span><span class="p">[</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">indice</span><span class="p">:</span><span class="n">indice</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="o">+</span><span class="n">yn</span><span class="o">*</span><span class="n">yn</span><span class="o">.</span><span class="n">H</span>
     
     <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="o">/</span><span class="n">N</span>
     <span class="k">return</span> <span class="n">R</span>
-</div>
-<div class="viewcode-block" id="pseudospectrum_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.pseudospectrum_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">pseudospectrum_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="p">,</span><span class="n">f_vect</span><span class="p">):</span>
-    
-    <span class="c">#compute covariance matrix</span>
-    <span class="n">R</span><span class="o">=</span><span class="n">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
 
-    <span class="c">#perform SVD of the covariance matrix</span>
-    <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="pseudospectrum_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.pseudospectrum_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">pseudospectrum_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">Fe</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot; This function compute the MUSIC pseudospectrum. The pseudo spectrum is defined as</span>
+<span class="sd">        </span>
+<span class="sd">        .. math:: S(f)=\frac{1}{\|\textbf{a}^{H}(f)\textbf{G}\|}</span>
+<span class="sd">        </span>
+<span class="sd">        where :math:`\textbf{G}` corresponds to the noise subspace and :math:`\textbf{a}(f)` is the steering vector. The peek locations give the frequencies of the signal.</span>
+<span class="sd">        </span>
+<span class="sd">        :param x: ndarray of size N</span>
+<span class="sd">        :param L: int. Number of components to be extracted.</span>
+<span class="sd">        :param M:  int, optional. Size of signal block.</span>
+<span class="sd">        :param Fe: float. Sampling Frequency.</span>
+<span class="sd">        :param f: nd array. Frequency locations f where the pseudo spectrum is evaluated.</span>
+<span class="sd">        :returns: ndarray</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; from pylab import *</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import spectral_analysis.spectral_analysis as sa</span>
+<span class="sd">        &gt;&gt;&gt; Fe=500</span>
+<span class="sd">        &gt;&gt;&gt; t=1.*np.arange(100)/Fe</span>
+<span class="sd">        &gt;&gt;&gt; x=np.exp(2j*np.pi*55.2*t)</span>
+<span class="sd">        &gt;&gt;&gt; f,P=sa.pseudospectrum_MUSIC(x,1,100,Fe,None)</span>
+<span class="sd">        &gt;&gt;&gt; plot(f,P)</span>
+<span class="sd">        &gt;&gt;&gt; show()</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+    <span class="c"># length of the vector x</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="n">Fe</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span><span class="mi">512</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">M</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span>
 
     <span class="c">#extract noise subspace</span>
-    <span class="n">U_noise</span><span class="o">=</span><span class="n">U</span><span class="p">[:,</span><span class="n">L</span><span class="p">:]</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">G</span><span class="o">=</span><span class="n">U</span><span class="p">[:,</span><span class="n">L</span><span class="p">:]</span>
 
-    <span class="c">#compute cost function MUSIC pseudo spectrum</span>
-    <span class="n">N_f</span><span class="o">=</span><span class="n">f_vect</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c">#compute MUSIC pseudo spectrum</span>
+    <span class="n">N_f</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">cost</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_f</span><span class="p">)</span>
     
-    <span class="k">for</span> <span class="n">indice</span><span class="p">,</span><span class="n">f_temp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f_vect</span><span class="p">):</span>
-        <span class="c"># construct a</span>
-        <span class="n">vect_exp</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f_temp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">M</span><span class="p">)</span><span class="o">/</span><span class="n">Fe</span>
-        <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span><span class="o">*</span><span class="n">vect_exp</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">indice</span><span class="p">,</span><span class="n">f_temp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="c"># construct a (note that there a minus sign since Yn are defined as [y(n), y(n-1),y(n-2),..].T)</span>
+        <span class="n">vect_exp</span><span class="o">=-</span><span class="mi">2j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f_temp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">M</span><span class="p">)</span><span class="o">/</span><span class="n">Fe</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">vect_exp</span><span class="p">)</span>
         <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-    
-        <span class="n">cost</span><span class="p">[</span><span class="n">indice</span><span class="p">]</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">lg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">U_noise</span><span class="o">.</span><span class="n">H</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="c">#Cost function</span>
+        <span class="n">cost</span><span class="p">[</span><span class="n">indice</span><span class="p">]</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">lg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">G</span><span class="o">.</span><span class="n">H</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">cost</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">,</span><span class="n">cost</span>
 </div>
-<div class="viewcode-block" id="root_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.root_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">root_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="p">):</span>
-
-    <span class="c">#compute covariance matrix</span>
-    <span class="n">R</span><span class="o">=</span><span class="n">compute_covariance_psd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+<div class="viewcode-block" id="root_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.root_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">root_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     
-    <span class="c">#perform SVD of the covariance matrix</span>
-    <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="sd">r&quot;&quot;&quot; This function estimate the frequency components based on the roots MUSIC algorithm. The roots Music algorithm find the roots of the following polynomial</span>
+<span class="sd">        </span>
+<span class="sd">        .. math:: P(z)=\textbf{a}^{H}(z)\textbf{G}\textbf{G}^{H}\textbf{a}(z)</span>
+<span class="sd">        </span>
+<span class="sd">        The frequencies are related to the roots as </span>
+<span class="sd">        </span>
+<span class="sd">        .. math:: z=e^{-2j\pi f/Fe}</span>
+<span class="sd">        </span>
+<span class="sd">        :param x: ndarray of size N</span>
+<span class="sd">        :param L: int. Number of components to be extracted.</span>
+<span class="sd">        :param M:  int, optional. Size of signal block.</span>
+<span class="sd">        :param Fe: float. Sampling Frequency.</span>
+<span class="sd">        :returns: ndarray containing the L frequencies</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import spectral_analysis.spectral_analysis as sa</span>
+<span class="sd">        &gt;&gt;&gt; Fe=500</span>
+<span class="sd">        &gt;&gt;&gt; t=1.*np.arange(100)/Fe</span>
+<span class="sd">        &gt;&gt;&gt; x=np.exp(2j*np.pi*55.2*t)</span>
+<span class="sd">        &gt;&gt;&gt; f=sa.root_MUSIC(x,1,None,Fe)</span>
+<span class="sd">        &gt;&gt;&gt; print(f)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="c"># length of the vector x</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">M</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span>
     
     <span class="c">#extract noise subspace</span>
-    <span class="n">U_noise</span><span class="o">=</span><span class="n">U</span><span class="p">[:,</span><span class="n">L</span><span class="p">:]</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">G</span><span class="o">=</span><span class="n">U</span><span class="p">[:,</span><span class="n">L</span><span class="p">:]</span>
 
-    <span class="c">#construct polynomial</span></div>
+    <span class="c">#construct matrix P</span>
+    <span class="n">P</span><span class="o">=</span><span class="n">G</span><span class="o">*</span><span class="n">G</span><span class="o">.</span><span class="n">H</span>
+
+    <span class="c">#construct polynomial Q</span>
+    <span class="n">Q</span><span class="o">=</span><span class="mi">0j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c">#Extract the sum in each diagonal</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="n">M</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="n">diag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
+        <span class="n">Q</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">diag</span><span class="p">)</span>
+
+    <span class="c">#Compute the roots</span>
+    <span class="n">roots</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+
+    <span class="c">#Keep the roots with radii &lt;1 and with non zero imaginary part</span>
+    <span class="n">roots</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="n">roots</span><span class="p">)</span>
+    <span class="n">roots</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span><span class="n">roots</span><span class="p">)</span>
+
+    <span class="c">#Find the L roots closest to the unit circle</span>
+    <span class="n">distance_from_circle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">index_sort</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distance_from_circle</span><span class="p">)</span>
+    <span class="n">component_roots</span><span class="o">=</span><span class="n">roots</span><span class="p">[</span><span class="n">index_sort</span><span class="p">[:</span><span class="n">L</span><span class="p">]]</span>
+
+    <span class="c">#extract frequencies ((note that there a minus sign since Yn are defined as [y(n), y(n-1),y(n-2),..].T))</span>
+    <span class="n">angle</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">component_roots</span><span class="p">)</span>
+
+    <span class="c">#frequency normalisation</span>
+    <span class="n">f</span><span class="o">=</span><span class="n">Fe</span><span class="o">*</span><span class="n">angle</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f</span>
+</div>
+<div class="viewcode-block" id="Esprit"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.Esprit">[docs]</a><span class="k">def</span> <span class="nf">Esprit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="p">):</span>
+    
+    <span class="sd">r&quot;&quot;&quot; This function estimate the frequency components based on the ESPRIT algorithm.</span>
+<span class="sd">        </span>
+<span class="sd">        The frequencies are related to the roots as :math:`z=e^{-2j\pi f/Fe}`</span>
+<span class="sd">        </span>
+<span class="sd">        :param x: ndarray of size N</span>
+<span class="sd">        :param L: int. Number of components to be extracted.</span>
+<span class="sd">        :param M:  int, optional. Size of signal block.</span>
+<span class="sd">        :param Fe: float. Sampling Frequency.</span>
+<span class="sd">        :returns: ndarray ndarray containing the L frequencies</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import spectral_analysis.spectral_analysis as sa</span>
+<span class="sd">        &gt;&gt;&gt; Fe=500</span>
+<span class="sd">        &gt;&gt;&gt; t=1.*np.arange(100)/Fe</span>
+<span class="sd">        &gt;&gt;&gt; x=np.exp(2j*np.pi*55.2*t)</span>
+<span class="sd">        &gt;&gt;&gt; f=sa.Esprit(x,1,None,Fe)</span>
+<span class="sd">        &gt;&gt;&gt; print(f)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="c"># length of the vector x</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="k">if</span> <span class="n">M</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span>
+
+    <span class="c">#extract signal subspace</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">S</span><span class="o">=</span><span class="n">U</span><span class="p">[:,:</span><span class="n">L</span><span class="p">]</span>
+
+    <span class="c">#Remove last row</span>
+    <span class="n">S1</span><span class="o">=</span><span class="n">S</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
+    <span class="c">#Remove first row</span>
+    <span class="n">S2</span><span class="o">=</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:]</span>
+
+    <span class="c">#Compute matrix Phi (Stoica 4.7.12)</span>
+    <span class="n">Phi</span><span class="o">=</span><span class="p">(</span><span class="n">S1</span><span class="o">.</span><span class="n">H</span><span class="o">*</span><span class="n">S1</span><span class="p">)</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">S1</span><span class="o">.</span><span class="n">H</span><span class="o">*</span><span class="n">S2</span>
+
+    <span class="c">#Perform eigenvalue decomposition</span>
+    <span class="n">V</span><span class="p">,</span><span class="n">U</span><span class="o">=</span><span class="n">lg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">Phi</span><span class="p">)</span>
+
+    <span class="c">#extract frequencies ((note that there a minus sign since Yn are defined as [y(n), y(n-1),y(n-2),..].T))</span>
+    <span class="n">angle</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+    
+    <span class="c">#frequency normalisation</span>
+    <span class="n">f</span><span class="o">=</span><span class="n">Fe</span><span class="o">*</span><span class="n">angle</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">f</span></div>
 </pre></div>
 
           </div>
@@ -190,7 +318,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, Author.
+        &copy; Copyright 2015, Vincent Choqueuse.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>

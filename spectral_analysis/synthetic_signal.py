@@ -1,6 +1,7 @@
 import numpy as np
 from scipy import signal as sg
 
+
 def generate_sine(a0=1,f0=50,Fe=1000,N=1000):
     #time base
     t=1.*np.arange(N)/Fe
