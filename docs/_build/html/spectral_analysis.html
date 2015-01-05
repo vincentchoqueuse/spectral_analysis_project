@@ -57,8 +57,8 @@
 <dl class="function">
 <dt id="spectral_analysis.Esprit">
 <tt class="descclassname">spectral_analysis.</tt><tt class="descname">Esprit</tt><big>(</big><em>x</em>, <em>L</em>, <em>M</em>, <em>Fe</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#Esprit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.Esprit" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function estimate the frequency components based on the ESPRIT algorithm.</p>
-<p>The frequencies are related to the roots as <img class="math" src="_images/math/acb741eec05e9cb3dac664a50a2aea12b3e1fdac.png" alt="z=e^{-2j\pi f/Fe}"/></p>
+<dd><p>This function estimate the frequency components based on the ESPRIT algorithm <a class="reference internal" href="#roy89" id="id1">[ROY89]</a></p>
+<p>The frequencies are related to the roots as <img class="math" src="_images/math/acb741eec05e9cb3dac664a50a2aea12b3e1fdac.png" alt="z=e^{-2j\pi f/Fe}"/>. See <a class="reference internal" href="#sto97" id="id2">[STO97]</a> section 4.7 for more information about the implementation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -88,65 +88,11 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="spectral_analysis.compute_autocovariance">
-<tt class="descclassname">spectral_analysis.</tt><tt class="descname">compute_autocovariance</tt><big>(</big><em>x</em>, <em>M</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#compute_autocovariance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.compute_autocovariance" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function compute the auto-covariance matrix of a numpy signal. The auto-covariance is computed as follows</p>
-<div class="math">
-<p><img src="_images/math/1ce58d650f435a273dedb4acf974e7c158ba2074.png" alt="\textbf{R}=\frac{1}{N}\sum_{M-1}^{N-1}\textbf{x}_{m}\textbf{x}_{m}^{H}"/></p>
-</div><p>where <img class="math" src="_images/math/7b0491192ab72de30837a77d31dde6cd50f470bc.png" alt="\textbf{x}_{m}^{T}=[x[m],x[m-1],x[m-M+1]]"/>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> &#8211; ndarray of size N</li>
-<li><strong>M</strong> &#8211; int, optional. Size of signal block.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ndarray</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="spectral_analysis.compute_covariance">
-<tt class="descclassname">spectral_analysis.</tt><tt class="descname">compute_covariance</tt><big>(</big><em>X</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#compute_covariance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.compute_covariance" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function estimate the covariance of a zero-mean numpy matrix. The covariance is estimated as <img class="math" src="_images/math/999a06047817a180c704e7304c21570bf551827a.png" alt="\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{H}"/></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X</strong> &#8211; M*N matrix</li>
-<li><strong>type</strong> &#8211; string, optional</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">covariance matrix of size M*M</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">spectral_analysis.spectral_analysis</span> <span class="kn">as</span> <span class="nn">sa</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="s">&#39;1 2; 3 4;5 6&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sa</span><span class="o">.</span><span class="n">compute_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="go">matrix([[  2.5,   5.5,   8.5],</span>
-<span class="go">[  5.5,  12.5,  19.5],</span>
-<span class="go">[  8.5,  19.5,  30.5]])</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
 <dt id="spectral_analysis.pseudospectrum_MUSIC">
 <tt class="descclassname">spectral_analysis.</tt><tt class="descname">pseudospectrum_MUSIC</tt><big>(</big><em>x</em>, <em>L</em>, <em>M=None</em>, <em>Fe=1</em>, <em>f=None</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#pseudospectrum_MUSIC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.pseudospectrum_MUSIC" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function compute the MUSIC pseudospectrum. The pseudo spectrum is defined as</p>
 <div class="math">
-<p><img src="_images/math/4f87d3620e9081b4630433a2436764c7dd874be1.png" alt="S(f)=\frac{1}{\|\textbf{a}^{H}(f)\textbf{G}\|}"/></p>
+<p><img src="_images/math/e3415ff3b847bb74dfb7f62f04fcba370cfe25b4.png" alt="S(f)=\frac{1}{\|\textbf{G}^{H}\textbf{a}(f) \|}"/></p>
 </div><p>where <img class="math" src="_images/math/ebff630d4dc7cf9bce93ce903b4c3df9d7383956.png" alt="\textbf{G}"/> corresponds to the noise subspace and <img class="math" src="_images/math/8a82bc884738a58f9c60a1aeb7870c2df41c0be6.png" alt="\textbf{a}(f)"/> is the steering vector. The peek locations give the frequencies of the signal.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -182,7 +128,7 @@
 <dl class="function">
 <dt id="spectral_analysis.root_MUSIC">
 <tt class="descclassname">spectral_analysis.</tt><tt class="descname">root_MUSIC</tt><big>(</big><em>x</em>, <em>L</em>, <em>M</em>, <em>Fe=1</em><big>)</big><a class="reference internal" href="_modules/spectral_analysis.html#root_MUSIC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spectral_analysis.root_MUSIC" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function estimate the frequency components based on the roots MUSIC algorithm. The roots Music algorithm find the roots of the following polynomial</p>
+<dd><p>This function estimate the frequency components based on the roots MUSIC algorithm <a class="reference internal" href="#bar83" id="id3">[BAR83]</a> . The roots Music algorithm find the roots of the following polynomial</p>
 <div class="math">
 <p><img src="_images/math/f6ad353f1b2c0f239a1c5ab631baf2b3337aab43.png" alt="P(z)=\textbf{a}^{H}(z)\textbf{G}\textbf{G}^{H}\textbf{a}(z)"/></p>
 </div><p>The frequencies are related to the roots as</p>
@@ -216,6 +162,27 @@
 </div>
 </dd></dl>
 
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="sto97" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[STO97]</a></td><td>Stoica, Petre, and Randolph L. Moses. Introduction to spectral analysis. Vol. 1. Upper Saddle River, NJ: Prentice hall, 1997.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="roy89" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[ROY89]</a></td><td>Roy, Richard, and Thomas Kailath. &#8220;ESPRIT-estimation of signal parameters via rotational invariance techniques.&#8221; Acoustics, Speech and Signal Processing, IEEE Transactions on 37.7 (1989): 984-995.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="bar83" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[BAR83]</a></td><td>Barabell, Arthur. &#8220;Improving the resolution performance of eigenstructure-based direction-finding algorithms.&#8221; Acoustics, Speech, and Signal Processing, IEEE International Conference on ICASSP&#8216;83.. Vol. 8. IEEE, 1983.</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 
 
@@ -224,6 +191,14 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">spectral_analysis module</a><ul>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to spectral_analysis&#8217;s documentation!</a></p>

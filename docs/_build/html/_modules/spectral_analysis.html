@@ -52,7 +52,7 @@
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">lg</span>
 
 
-<div class="viewcode-block" id="compute_covariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_covariance">[docs]</a><span class="k">def</span> <span class="nf">compute_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">compute_covariance</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
     <span class="sd">r&quot;&quot;&quot;This function estimate the covariance of a zero-mean numpy matrix. The covariance is estimated as :math:`\textbf{R}=\frac{1}{N}\textbf{X}\textbf{X}^{H}`</span>
 <span class="sd">        </span>
 <span class="sd">        </span>
@@ -76,8 +76,8 @@
 
     <span class="k">return</span> <span class="n">R</span>
 
-</div>
-<div class="viewcode-block" id="compute_autocovariance"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.compute_autocovariance">[docs]</a><span class="k">def</span> <span class="nf">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">compute_autocovariance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">M</span><span class="p">):</span>
     
     <span class="sd">r&quot;&quot;&quot; This function compute the auto-covariance matrix of a numpy signal. The auto-covariance is computed as follows</span>
 <span class="sd">        </span>
@@ -109,11 +109,11 @@
     <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="o">/</span><span class="n">N</span>
     <span class="k">return</span> <span class="n">R</span>
 
-</div>
+
 <div class="viewcode-block" id="pseudospectrum_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.pseudospectrum_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">pseudospectrum_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">Fe</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">r&quot;&quot;&quot; This function compute the MUSIC pseudospectrum. The pseudo spectrum is defined as</span>
 <span class="sd">        </span>
-<span class="sd">        .. math:: S(f)=\frac{1}{\|\textbf{a}^{H}(f)\textbf{G}\|}</span>
+<span class="sd">        .. math:: S(f)=\frac{1}{\|\textbf{G}^{H}\textbf{a}(f) \|}</span>
 <span class="sd">        </span>
 <span class="sd">        where :math:`\textbf{G}` corresponds to the noise subspace and :math:`\textbf{a}(f)` is the steering vector. The peek locations give the frequencies of the signal.</span>
 <span class="sd">        </span>
@@ -166,7 +166,7 @@
 </div>
 <div class="viewcode-block" id="root_MUSIC"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.root_MUSIC">[docs]</a><span class="k">def</span> <span class="nf">root_MUSIC</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     
-    <span class="sd">r&quot;&quot;&quot; This function estimate the frequency components based on the roots MUSIC algorithm. The roots Music algorithm find the roots of the following polynomial</span>
+    <span class="sd">r&quot;&quot;&quot; This function estimate the frequency components based on the roots MUSIC algorithm [BAR83]_ . The roots Music algorithm find the roots of the following polynomial</span>
 <span class="sd">        </span>
 <span class="sd">        .. math:: P(z)=\textbf{a}^{H}(z)\textbf{G}\textbf{G}^{H}\textbf{a}(z)</span>
 <span class="sd">        </span>
@@ -232,9 +232,9 @@
 </div>
 <div class="viewcode-block" id="Esprit"><a class="viewcode-back" href="../spectral_analysis.html#spectral_analysis.Esprit">[docs]</a><span class="k">def</span> <span class="nf">Esprit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">Fe</span><span class="p">):</span>
     
-    <span class="sd">r&quot;&quot;&quot; This function estimate the frequency components based on the ESPRIT algorithm.</span>
+    <span class="sd">r&quot;&quot;&quot; This function estimate the frequency components based on the ESPRIT algorithm [ROY89]_ </span>
 <span class="sd">        </span>
-<span class="sd">        The frequencies are related to the roots as :math:`z=e^{-2j\pi f/Fe}`</span>
+<span class="sd">        The frequencies are related to the roots as :math:`z=e^{-2j\pi f/Fe}`. See [STO97]_ section 4.7 for more information about the implementation.</span>
 <span class="sd">        </span>
 <span class="sd">        :param x: ndarray of size N</span>
 <span class="sd">        :param L: int. Number of components to be extracted.</span>

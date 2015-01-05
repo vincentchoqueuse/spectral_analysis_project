@@ -64,7 +64,7 @@ def compute_autocovariance(x,M):
 def pseudospectrum_MUSIC(x,L,M=None,Fe=1,f=None):
     r""" This function compute the MUSIC pseudospectrum. The pseudo spectrum is defined as
         
-        .. math:: S(f)=\frac{1}{\|\textbf{a}^{H}(f)\textbf{G}\|}
+        .. math:: S(f)=\frac{1}{\|\textbf{G}^{H}\textbf{a}(f) \|}
         
         where :math:`\textbf{G}` corresponds to the noise subspace and :math:`\textbf{a}(f)` is the steering vector. The peek locations give the frequencies of the signal.
         
@@ -117,7 +117,7 @@ def pseudospectrum_MUSIC(x,L,M=None,Fe=1,f=None):
 
 def root_MUSIC(x,L,M,Fe=1):
     
-    r""" This function estimate the frequency components based on the roots MUSIC algorithm. The roots Music algorithm find the roots of the following polynomial
+    r""" This function estimate the frequency components based on the roots MUSIC algorithm [BAR83]_ . The roots Music algorithm find the roots of the following polynomial
         
         .. math:: P(z)=\textbf{a}^{H}(z)\textbf{G}\textbf{G}^{H}\textbf{a}(z)
         
@@ -183,9 +183,9 @@ def root_MUSIC(x,L,M,Fe=1):
 
 def Esprit(x,L,M,Fe):
     
-    r""" This function estimate the frequency components based on the ESPRIT algorithm.
+    r""" This function estimate the frequency components based on the ESPRIT algorithm [ROY89]_ 
         
-        The frequencies are related to the roots as :math:`z=e^{-2j\pi f/Fe}`
+        The frequencies are related to the roots as :math:`z=e^{-2j\pi f/Fe}`. See [STO97]_ section 4.7 for more information about the implementation.
         
         :param x: ndarray of size N
         :param L: int. Number of components to be extracted.
